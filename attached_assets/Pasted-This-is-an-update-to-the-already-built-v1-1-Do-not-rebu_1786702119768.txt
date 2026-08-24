@@ -1,0 +1,106 @@
+This is an update to the already-built v1.1. Do not rebuild the whole app. Just add and change the following features.
+The Big Change: Natural Language for Everyone
+In v1.1, we had slash commands like /applyleave. Forget that. In v1.2, anyone in the room — parent, student, or teacher — just types a normal sentence in the chat. No commands. No forms. Just talk like a human.
+The built-in Heyya Assistant reads the message, figures out what they want, and replies with a smart card that extracts all the details.
+How Leave Works Now (The New Flow)
+Example: Mr. Jordanis (Laurel's dad) opens the Grade 10 Class 03 room and types:
+"Leave application for Laurel today 8th September 2026, medical reason, seeing the doctor for eye infection, will produce MC, probably will not be able to attend school for 2-3 days. Will update accordingly."
+That's it. One long normal sentence.
+What the Assistant does:
+Parses the message automatically. It pulls out:
+Who: Laurel Jordanis
+When: 8th September 2026 (and figures out "today" if they say that)
+Type: Medical leave
+Reason: Seeing the doctor for eye infection
+Duration: 2–3 days
+Notes: Will produce medical certificate, will update accordingly
+Posts a Confirmation Card in the chat that looks like this:
+Leave Request Detected
+Student: Laurel Jordanis
+Date: 8 September 2026
+Type: Medical
+Reason: Seeing doctor for eye infection
+Duration: 2–3 days
+Notes: Will produce MC. Will update accordingly.
+[Confirm & Submit] [Edit Details] [Cancel]
+Mr. Jordanis taps "Confirm & Submit." Done. No typing after that. One tap.
+The system immediately:
+Records Laurel as on medical leave for those dates
+Posts a system message: "Medical leave confirmed for Laurel Jordanis (8 Sep – 10 Sep)"
+Notifies the teacher (Ms. Yolanda) with a clean summary
+Triggers a "Hook" (see below)
+The "Hook" — Automatic Catch-Up Reminder
+This is the new killer feature. Whenever a student is confirmed on leave, the Assistant automatically generates a Hook — a little notepad-style reminder message — and drops it privately to both the student AND the parent.
+The Hook appears as a special message card and contains:
+What they missed today: A summary of what the teacher covered in class (pulled from the room's chat history or any lesson notes posted that day)
+Assignments due: Any homework, projects, or tests announced in the room while they were away
+Upcoming deadlines: Things due soon that they should keep an eye on
+A note: "Feel better, Laurel! Here's what you missed today. Tap any item to mark it done."
+Example Hook for Laurel:
+Your Hook — Thu, 8 Sep
+📌 What we covered today:
+Math: Quadratic equations — factoring method
+Science: Lab safety review, started Chapter 4
+📝 Assignments due:
+Math worksheet (due Mon 11 Sep)
+Science lab prep questions (due Fri 9 Sep)
+✅ Upcoming:
+Science quiz — Fri 16 Sep
+Get well soon! Tap ✅ to mark items complete.
+How the Hook works:
+It appears in the chat as a special card (different color from normal messages — maybe a soft yellow or cream background so it stands out)
+Both Laurel and Mr. Jordanis see their own copy
+Each item has a little checkbox. Tapping it strikes through the text
+The Hook stays pinned at the top of their personal view until they dismiss it
+If the student is away for multiple days, a new Hook is generated each day
+For v1.2, since we don't have real lesson data yet, the Hook can pull from:
+Recent messages in the room that contain words like "homework," "assignment," "due," "worksheet," "quiz," "test," "project"
+Any message posted by a teacher that looks like a lesson summary
+If nothing is found, the Hook says: "No assignments posted yet. Check back later or ask your teacher."
+Other Things the Assistant Should Parse Naturally
+The Assistant should listen for keywords and patterns in every message, not just leave requests. Here are the main ones:
+Table
+If someone types...	The Assistant should...
+"Leave application for [Name] today..."	Extract all details and post a Confirmation Card
+"[Name] is sick today" or "Not feeling well"	Ask: "Shall I create a sick leave request for [Name]?" with a quick [Yes] [No] button
+"Doctor appointment" or "Dentist visit"	Detect as medical leave, ask for confirmation
+"Family trip" or "Traveling"	Detect as personal leave, ask for dates
+"Take attendance" or "Roll call" or "Who's here?"	Open the attendance card (same as v1.1)
+"Show timetable" or "My schedule"	Show the student's or teacher's timetable view
+"Who is free period 3?" or "Who can cover?"	Check the room's timetable and reply with available teachers
+"Assignments due?" or "What homework?"	Show a quick list of recent assignments from chat history
+Important: The Assistant should not reply to every single message. Only when it detects a clear action keyword. If someone says "Good morning," the Assistant stays quiet.
+What Changes from v1.1
+Remove:
+The /applyleave slash command. Parents and students won't know commands. Natural language only.
+Add:
+Keyword parser that scans every incoming message for leave-related patterns
+Confirmation Card as a new message type — clean, structured, with Confirm/Edit/Cancel buttons
+"Hook" message type — notepad-style card with checkboxes, auto-generated on leave confirmation
+Smart detection for medical vs personal vs family leave based on words like "doctor," "sick," "fever," "dentist," "family," "trip," "travel," "wedding," etc.
+Keep Exactly As-Is:
+The attendance card (it works great)
+The room layout and sidebar
+The mates panel
+The demo chat history
+The "View as" dropdown
+The Excel upload
+One More Example Scenario to Test
+Scenario: Parent Applies for Leave
+Mr. Jordanis opens the Grade 10 Class 03 room
+He types: "Laurel has an eye infection, needs to see the doc today 8th Sep, probably out 2-3 days, will get MC"
+Assistant detects: student=Laurel, type=medical, date=8 Sep, duration=2-3 days, notes=will get MC
+Assistant posts Confirmation Card
+Mr. Jordanis taps Confirm & Submit
+System posts: "Medical leave confirmed for Laurel Jordanis (8 Sep – 10 Sep)"
+Assistant generates and sends a Hook to both Laurel and Mr. Jordanis with today's lesson summary and any assignments
+Ms. Yolanda sees the leave confirmation in the room and knows Laurel is away
+Build This Update Step by Step
+First, add the keyword parser — make the Assistant read messages and detect leave requests
+Then build the Confirmation Card UI — structured, clean, with three buttons
+Wire up the Confirm button so it actually records the leave and updates attendance
+Then build the Hook card — the notepad-style reminder with checkboxes
+Make the Hook auto-generate when leave is confirmed
+Make sure the Hook goes to both the student and the parent
+Test with the Mr. Jordanis example above
+Do not touch the attendance card, the room layout, or the demo data. Only add these new conversational features on top of what already works.

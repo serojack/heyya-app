@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Heyya"
+description = "Heyya is a chat-first school management web app. Think Telegram but for schools — every admin action (attendance, leave, timetables) happens through group chat rooms. Users have roles (admin, teacher, student, parent) and interact through interactive message cards rather than forms."
+version = "1.0.0"
+id = "artifacts/heyya"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23520
+
+[services.development]
+run = "pnpm --filter @workspace/heyya run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/heyya", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/heyya/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23520"
+BASE_PATH = "/"

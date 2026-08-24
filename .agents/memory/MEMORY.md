@@ -1,0 +1,3 @@
+- [Orval v8 + Zod v3 codegen quirks](orval-zod-codegen.md) — `type: integer` generates `zod.int()` (v4 only); use `type: number`. Barrel collision fix via sed post-processor in codegen script.
+- [Heyya demo auth](heyya-demo-auth.md) — Session via signed cookie `userId`; `SESSION_SECRET` env required. No auth library by design.
+- [Heyya v1.2 Assistant feature](heyya-v12-assistant.md) — NL leave detection via gpt-4o-mini (user's own OPENAI_API_KEY); confirmation_card + hook_card message types; fire-and-forget after sendMessage.

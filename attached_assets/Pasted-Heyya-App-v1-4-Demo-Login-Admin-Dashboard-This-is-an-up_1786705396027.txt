@@ -1,0 +1,143 @@
+Heyya App v1.4 — Demo Login & Admin Dashboard
+This is an update to v1.3. Do not rebuild existing features. Add a login system and a simple admin dashboard. Everything else — chat, attendance cards, leave parsing, hooks, scroll behavior — stays exactly as it is.
+1. Login Page
+When someone opens the app, they see a clean login page first. Not the chat.
+The login page has:
+The Heyya logo at the top (a simple "H" in a circle with the word "Heyya" underneath)
+Two input fields: Login ID and Password
+A "Sign In" button
+A small note at the bottom: "Demo account: demouser@heyya.app / demo1990user"
+The demo credentials are:
+Login ID: demouser@heyya.app
+Password: demo1990user
+When the user enters these and clicks Sign In, they log in as the demo user. The demo user has access to all accounts in the app — they can switch between any teacher, student, parent, or admin view without re-entering a password.
+2. Logout
+Add a logout button in the top-right corner of the app (next to the settings icon, or inside a small profile dropdown menu).
+When clicked:
+The user is logged out
+They are taken back to the login page
+All session data clears
+They must enter the login ID and password again to get back in
+3. Role Switcher (Demo Mode)
+Since this is a demo, after logging in, the user sees a role switcher — a clean dropdown or a row of buttons at the very top of the screen (above the room sidebar) that says:
+Viewing as: [Dropdown]
+Options: Admin | Ms. Homer Yolanda (Teacher) | Mr. Peterson Alfred (Teacher) | Fred Kelly (Student) | Hannah Cullum (Student) | Mr. Jordanis (Parent) | Ms. Poh (Parent)
+When the demo user picks a role, the entire interface updates to show what that person would see. No page reload — just instant switch.
+4. What Each Role Sees
+Teacher / Staff = Chat Interface
+Exactly what we already built. The three-panel layout: rooms sidebar, chat area, mates panel. They can take attendance, approve leave, chat, see hooks. No changes needed here.
+Student = Chat Interface
+Same chat interface, but with student-level permissions. They can:
+See their class rooms
+Chat in rooms
+View their own attendance record
+Apply for leave via natural language
+Receive Hooks when they are absent
+No changes needed here — just make sure the "View as Student" option loads the existing chat view from the student's perspective.
+Parent = Chat Interface
+Same chat interface. Parents can:
+See their child's class rooms
+Chat in rooms
+Apply for leave on behalf of their child via natural language
+Receive Hooks when their child is absent
+No changes needed here — just make sure the "View as Parent" option loads the existing chat view.
+Admin = Admin Dashboard (NEW — THIS IS WHAT YOU BUILD)
+When the demo user switches to Admin, the screen changes completely. No chat interface. Instead, they see a simple, clean Admin Dashboard with three sections.
+5. The Admin Dashboard
+Replace the three-panel chat layout with a dashboard layout when the user is in Admin mode.
+Dashboard layout:
+Top bar: Heyya logo on the left, "Admin Dashboard" label in the center, logout button on the right
+Left sidebar: Navigation menu with three items:
+📊 Attendance Overview
+📝 Staff Attendance
+📩 Leave Requests
+Clicking each item shows the corresponding section in the main area.
+Section A: Attendance Overview
+A simple summary page showing:
+Today's Student Attendance — Grade 10 Class 03
+Total students: 16
+Present: 14
+Absent: 1 (Rash Isa — Long Term Leave)
+Late: 0
+Excused: 1 (Hannah Cullum — approved leave, doctor appointment)
+Show this as:
+A row of summary cards at the top (big numbers with labels underneath)
+Below that, a simple list of all students with their status today:
+Green dot + "Present" for present students
+Red dot + "Absent" for absent students
+Yellow dot + "Late" for late students
+Blue dot + "Excused" for excused students
+Each student row shows: initials circle, preferred name, status, and a one-line reason if applicable (e.g., "Doctor appointment" for Hannah).
+Section B: Staff Attendance
+Same idea but for teachers and staff.
+Today's Staff Attendance — Goldeen Park High
+Total staff: 2
+Present: 2
+Absent: 0
+On Leave: 0
+List:
+Ms. Homer Yolanda — Present
+Mr. Peterson Alfred — Present
+Use the same dot + status format as the student list.
+For v1.4, this is simple and static based on the hard-coded demo data. In future versions, staff can apply for leave too and it will show here.
+Section C: Leave Requests
+This is a notification inbox for the admin.
+Show a list of all pending and recent leave requests from parents and students. Each item is a clean row:
+📝 New Leave Request
+From: Mr. Jordanis (Parent of Laurel Jordanis)
+For: Laurel Jordanis
+Type: Medical
+Dates: 8 Sep – 10 Sep 2026
+Reason: Seeing doctor for eye infection. Will produce MC.
+Status: Pending Approval
+[Approve] [Reject]
+And below that, recently approved ones:
+✅ Approved Leave
+From: Hannah Cullum
+For: Hannah Cullum
+Type: Personal
+Date: 8 Sep 2026
+Reason: Doctor appointment at 2pm
+Approved by: Ms. Homer Yolanda
+Status: Approved
+The list should show:
+Pending requests first (with action buttons)
+Then approved requests (with a green checkmark)
+Then rejected requests (with a red cross)
+Each row is clickable to expand and see the full details. Or keep it simple — show all details in the row itself.
+Important: This section pulls from the same leave data that the chat system already uses. When a parent confirms a leave request in the chat, it should automatically appear here in the admin dashboard as a new notification. The admin can approve or reject from here, or from the chat — both should update the same data.
+6. Navigation Between Admin and Chat
+The role switcher at the top should always be visible, even in Admin mode. So the demo user can:
+Be in Admin Dashboard viewing attendance
+Click the role switcher and pick "Ms. Homer Yolanda"
+Instantly see the chat interface as the teacher
+Approve a leave request in the chat
+Switch back to Admin
+See the updated leave status in the dashboard
+The data must stay in sync. One source of truth for attendance and leave records.
+7. What to Build vs. What to Keep
+Build New:
+Login page with the demo credentials
+Logout button and flow
+Role switcher dropdown at the top
+Admin Dashboard with the three sections
+Navigation sidebar for the admin view
+Summary cards and lists for attendance
+Leave request inbox
+Keep Exactly As-Is:
+The entire chat interface (rooms, messages, attendance cards, leave cards, hooks, scroll behavior, mate panel)
+The keyword parser and Assistant responses
+The demo chat history in Grade 10 Class 03
+All 16 students and 2 teachers
+The Excel upload feature
+8. Quick Test Checklist
+Open the app. See login page. Enter demouser@heyya.app / demo1990user. Sign in.
+See the role switcher. Default to "Admin."
+See the Admin Dashboard. Click "Attendance Overview" — see 14 present, 1 absent, 1 excused.
+Click "Staff Attendance" — see both teachers present.
+Click "Leave Requests" — see Hannah's approved leave and any pending requests.
+Switch role to "Mr. Jordanis (Parent)." See the chat interface. Type a leave request. Confirm it.
+Switch role back to "Admin." See the new leave request appear in the Leave Requests section.
+Switch role to "Ms. Homer Yolanda (Teacher)." See the chat interface. Approve the leave request in chat.
+Switch back to Admin. See the status updated to "Approved."
+Click Logout. Back to login page.

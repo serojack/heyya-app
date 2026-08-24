@@ -1,0 +1,910 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: Heyya school chat API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: users
+    description: User management
+  - name: rooms
+    description: Room management
+  - name: messages
+    description: Chat messages
+  - name: attendance
+    description: Attendance records
+  - name: leave
+    description: Leave requests
+
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  # ── Users ──────────────────────────────────────────────────────────────────
+
+  /users/me:
+    get:
+      operationId: getMe
+      tags: [users]
+      summary: Get current user
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Unauthorized
+    patch:
+      operationId: updateMe
+      tags: [users]
+      summary: Update current user profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserUpdate"
+      responses:
+        "200":
+          description: Updated user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  /users:
+    get:
+      operationId: listUsers
+      tags: [users]
+      summary: List all users (admin only)
+      parameters:
+        - in: query
+          name: role
+          schema:
+            type: string
+            enum: [admin, teacher, student, parent]
+        - in: query
+          name: search
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+
+  /users/{userId}:
+    get:
+      operationId: getUser
+      tags: [users]
+      summary: Get a user by ID
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: User
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: Not found
+
+  /users/demo-login:
+    post:
+      operationId: demoLogin
+      tags: [users]
+      summary: Log in as a demo user (dev/demo only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DemoLoginInput"
+      responses:
+        "200":
+          description: Logged in user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  # ── Rooms ───────────────────────────────────────────────────────────────────
+
+  /rooms:
+    get:
+      operationId: listRooms
+      tags: [rooms]
+      summary: List rooms visible to the current user
+      parameters:
+        - in: query
+          name: type
+          schema:
+            type: string
+            enum: [class, staff, admin]
+        - in: query
+          name: search
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of rooms
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Room"
+    post:
+      operationId: createRoom
+      tags: [rooms]
+      summary: Create a new room
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoomInput"
+      responses:
+        "201":
+          description: Created room
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Room"
+
+  /rooms/{roomId}:
+    get:
+      operationId: getRoom
+      tags: [rooms]
+      summary: Get room by ID
+      parameters:
+        - in: path
+          name: roomId
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Room detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Room"
+        "404":
+          description: Not found
+
+  /rooms/{roomId}/stats:
+    get:
+      operationId: getRoomStats
+      tags: [rooms]
+      summary: Get stats summary for a room
+      parameters:
+        - in: path
+          name: roomId
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Room stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoomStats"
+
+  /rooms/{roomId}/members:
+    get:
+      operationId: getRoomMembers
+      tags: [rooms]
+      summary: Get members of a room
+      parameters:
+        - in: path
+          name: roomId
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Members list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RoomMember"
+    post:
+      operationId: addRoomMember
+      tags: [rooms]
+      summary: Add a member to a room
+      parameters:
+        - in: path
+          name: roomId
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoomMemberInput"
+      responses:
+        "201":
+          description: Added member
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoomMember"
+
+  /rooms/{roomId}/members/{userId}:
+    delete:
+      operationId: removeRoomMember
+      tags: [rooms]
+      summary: Remove a member from a room
+      parameters:
+        - in: path
+          name: roomId
+          required: true
+          schema:
+            type: number
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: number
+      responses:
+        "204":
+          description: Removed
+
+  # ── Messages ────────────────────────────────────────────────────────────────
+
+  /rooms/{roomId}/messages:
+    get:
+      operationId: listMessages
+      tags: [messages]
+      summary: Get messages in a room
+      parameters:
+        - in: path
+          name: roomId
+          required: true
+          schema:
+            type: number
+        - in: query
+          name: before
+          schema:
+            type: string
+            description: Cursor – ISO timestamp of oldest message already loaded
+        - in: query
+          name: limit
+          schema:
+            type: number
+            default: 50
+      responses:
+        "200":
+          description: Messages list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Message"
+    post:
+      operationId: sendMessage
+      tags: [messages]
+      summary: Send a message to a room
+      parameters:
+        - in: path
+          name: roomId
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MessageInput"
+      responses:
+        "201":
+          description: Sent message
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+
+  /rooms/{roomId}/messages/{messageId}/reactions:
+    post:
+      operationId: addReaction
+      tags: [messages]
+      summary: Add an emoji reaction to a message
+      parameters:
+        - in: path
+          name: roomId
+          required: true
+          schema:
+            type: number
+        - in: path
+          name: messageId
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReactionInput"
+      responses:
+        "200":
+          description: Updated reactions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+
+  # ── Attendance ──────────────────────────────────────────────────────────────
+
+  /rooms/{roomId}/attendance:
+    get:
+      operationId: listAttendance
+      tags: [attendance]
+      summary: List attendance sessions for a room
+      parameters:
+        - in: path
+          name: roomId
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Attendance sessions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AttendanceRecord"
+    post:
+      operationId: createAttendance
+      tags: [attendance]
+      summary: Open a new attendance session in a room
+      parameters:
+        - in: path
+          name: roomId
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AttendanceInput"
+      responses:
+        "201":
+          description: Created attendance session
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttendanceRecord"
+
+  /attendance/{attendanceId}:
+    get:
+      operationId: getAttendance
+      tags: [attendance]
+      summary: Get a single attendance record
+      parameters:
+        - in: path
+          name: attendanceId
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Attendance record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttendanceRecord"
+
+  /attendance/{attendanceId}/entries:
+    patch:
+      operationId: updateAttendanceEntry
+      tags: [attendance]
+      summary: Update a student's attendance status
+      parameters:
+        - in: path
+          name: attendanceId
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AttendanceEntryUpdate"
+      responses:
+        "200":
+          description: Updated record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttendanceRecord"
+
+  /attendance/{attendanceId}/finalize:
+    post:
+      operationId: finalizeAttendance
+      tags: [attendance]
+      summary: Finalize an attendance session
+      parameters:
+        - in: path
+          name: attendanceId
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Finalized record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttendanceRecord"
+
+  # ── Leave Requests ──────────────────────────────────────────────────────────
+
+  /leave-requests:
+    get:
+      operationId: listLeaveRequests
+      tags: [leave]
+      summary: List leave requests visible to current user
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [pending, approved, rejected]
+        - in: query
+          name: roomId
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Leave requests
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LeaveRequest"
+    post:
+      operationId: createLeaveRequest
+      tags: [leave]
+      summary: Create a leave request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LeaveRequestInput"
+      responses:
+        "201":
+          description: Created leave request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaveRequest"
+
+  /leave-requests/{leaveId}:
+    get:
+      operationId: getLeaveRequest
+      tags: [leave]
+      summary: Get a leave request by ID
+      parameters:
+        - in: path
+          name: leaveId
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Leave request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaveRequest"
+    patch:
+      operationId: updateLeaveRequest
+      tags: [leave]
+      summary: Approve or reject a leave request
+      parameters:
+        - in: path
+          name: leaveId
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LeaveRequestUpdate"
+      responses:
+        "200":
+          description: Updated leave request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaveRequest"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    # ── User ─────────────────────────────────────────────────────────────────
+
+    User:
+      type: object
+      required: [id, name, email, role, status, createdAt]
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum: [admin, teacher, student, parent]
+        avatarUrl:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [online, offline, on_leave, withdrawn]
+        childId:
+          type: ["number", "null"]
+          description: Parent's linked student ID
+        createdAt:
+          type: string
+          format: date-time
+
+    UserUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        avatarUrl:
+          type: string
+        status:
+          type: string
+          enum: [online, offline, on_leave]
+
+    DemoLoginInput:
+      type: object
+      required: [role]
+      properties:
+        role:
+          type: string
+          enum: [admin, teacher, student, parent]
+        userId:
+          type: ["number", "null"]
+
+    # ── Room ──────────────────────────────────────────────────────────────────
+
+    Room:
+      type: object
+      required: [id, name, type, memberCount, createdAt]
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        type:
+          type: string
+          enum: [class, staff, admin]
+        description:
+          type: ["string", "null"]
+        avatarUrl:
+          type: ["string", "null"]
+        memberCount:
+          type: number
+        lastMessage:
+          type: ["string", "null"]
+        lastMessageAt:
+          type: ["string", "null"]
+          format: date-time
+        lastMessageSender:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+          format: date-time
+
+    RoomInput:
+      type: object
+      required: [name, type]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          enum: [class, staff, admin]
+        description:
+          type: string
+        memberIds:
+          type: array
+          items:
+            type: number
+
+    RoomStats:
+      type: object
+      required: [roomId, memberCount, messageCount, attendanceToday, pendingLeave]
+      properties:
+        roomId:
+          type: number
+        memberCount:
+          type: number
+        messageCount:
+          type: number
+        attendanceToday:
+          type: ["number", "null"]
+        pendingLeave:
+          type: number
+        presentToday:
+          type: ["number", "null"]
+        absentToday:
+          type: ["number", "null"]
+
+    RoomMember:
+      type: object
+      required: [userId, roomId, joinedAt, user]
+      properties:
+        userId:
+          type: number
+        roomId:
+          type: number
+        joinedAt:
+          type: string
+          format: date-time
+        user:
+          $ref: "#/components/schemas/User"
+
+    RoomMemberInput:
+      type: object
+      required: [userId]
+      properties:
+        userId:
+          type: number
+
+    # ── Message ───────────────────────────────────────────────────────────────
+
+    Message:
+      type: object
+      required: [id, roomId, type, content, createdAt]
+      properties:
+        id:
+          type: number
+        roomId:
+          type: number
+        senderId:
+          type: ["number", "null"]
+        sender:
+          $ref: "#/components/schemas/User"
+        type:
+          type: string
+          enum: [text, system, attendance_card, leave_card, ai_message, file, confirmation_card, hook_card]
+        content:
+          type: string
+        metadata:
+          type: ["object", "null"]
+          description: Extra data for card-type messages (attendance, leave, etc.)
+          additionalProperties: true
+        reactions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Reaction"
+        createdAt:
+          type: string
+          format: date-time
+
+    MessageInput:
+      type: object
+      required: [content]
+      properties:
+        content:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          enum: [text, system, attendance_card, leave_card, ai_message, file, confirmation_card, hook_card]
+          default: text
+        metadata:
+          type: object
+          additionalProperties: true
+
+    Reaction:
+      type: object
+      required: [emoji, userIds]
+      properties:
+        emoji:
+          type: string
+        userIds:
+          type: array
+          items:
+            type: number
+
+    ReactionInput:
+      type: object
+      required: [emoji]
+      properties:
+        emoji:
+          type: string
+
+    # ── Attendance ────────────────────────────────────────────────────────────
+
+    AttendanceRecord:
+      type: object
+      required: [id, roomId, date, finalized, entries, createdAt]
+      properties:
+        id:
+          type: number
+        roomId:
+          type: number
+        messageId:
+          type: ["number", "null"]
+        date:
+          type: string
+          format: date
+        finalized:
+          type: boolean
+        presentCount:
+          type: number
+        absentCount:
+          type: number
+        lateCount:
+          type: number
+        excusedCount:
+          type: number
+        entries:
+          type: array
+          items:
+            $ref: "#/components/schemas/AttendanceEntry"
+        createdAt:
+          type: string
+          format: date-time
+
+    AttendanceEntry:
+      type: object
+      required: [studentId, status]
+      properties:
+        studentId:
+          type: number
+        student:
+          $ref: "#/components/schemas/User"
+        status:
+          type: string
+          enum: [present, absent, late, excused]
+
+    AttendanceInput:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          description: Defaults to today
+
+    AttendanceEntryUpdate:
+      type: object
+      required: [studentId, status]
+      properties:
+        studentId:
+          type: number
+        status:
+          type: string
+          enum: [present, absent, late, excused]
+
+    # ── Leave ─────────────────────────────────────────────────────────────────
+
+    LeaveRequest:
+      type: object
+      required: [id, requesterId, type, startDate, endDate, reason, status, createdAt]
+      properties:
+        id:
+          type: number
+        requesterId:
+          type: number
+        requester:
+          $ref: "#/components/schemas/User"
+        onBehalfOfId:
+          type: ["number", "null"]
+          description: Student ID when parent applies on behalf of child
+        onBehalfOf:
+          $ref: "#/components/schemas/User"
+        roomId:
+          type: ["number", "null"]
+        messageId:
+          type: ["number", "null"]
+        type:
+          type: string
+          enum: [sick, personal, other]
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        reason:
+          type: string
+        status:
+          type: string
+          enum: [pending, approved, rejected]
+        approvedById:
+          type: ["number", "null"]
+        approvedBy:
+          $ref: "#/components/schemas/User"
+        approvedAt:
+          type: ["string", "null"]
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+
+    LeaveRequestInput:
+      type: object
+      required: [type, startDate, endDate, reason]
+      properties:
+        type:
+          type: string
+          enum: [sick, personal, other]
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        reason:
+          type: string
+        onBehalfOfId:
+          type: number
+        roomId:
+          type: number
+
+    LeaveRequestUpdate:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [approved, rejected]

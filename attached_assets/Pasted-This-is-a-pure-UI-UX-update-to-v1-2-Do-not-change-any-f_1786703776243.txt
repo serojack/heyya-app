@@ -1,0 +1,45 @@
+This is a pure UI/UX update to v1.2. Do not change any features, parsing logic, cards, or data. Only change how the chat area scrolls and behaves.
+The New Scroll Behavior
+Message Order
+Oldest messages at the top
+Newest messages at the bottom
+The chat view always opens scrolled all the way to the bottom so the user sees the most recent message first
+Reading History
+To see older messages, the user scrolls up (toward the top of the chat)
+As they scroll up, older messages load or appear naturally
+The scroll should be smooth and feel like Telegram or WhatsApp
+The "Jump to Bottom" Button
+When the user has scrolled up away from the most recent message (i.e., they are reading old history and the newest message is no longer visible), a floating circular button appears in the bottom-right corner of the chat area.
+The button:
+Is a small circle, maybe 40px wide
+Has a downward-pointing arrow inside it (↓)
+Sits just above the message input bar, floating with a soft shadow
+Appears with a gentle fade-in animation when the user scrolls up more than one screen-height from the bottom
+Disappears with a fade-out when the user scrolls back down to the bottom manually
+What it does:
+When tapped, the chat smooth-scrolls all the way to the bottom
+The newest message comes into view
+The button disappears
+If a new message arrives while the user is scrolled up, the button gets a little notification dot or badge on it showing how many new messages arrived (e.g., a small red circle with "3" inside)
+Auto-Scroll Rules
+When the user is already at the bottom and a new message comes in, the chat auto-scrolls down to keep the new message visible
+When the user is scrolled up (reading history) and a new message comes in, do not auto-scroll. The chat stays where it is. The jump-to-bottom button appears with a badge instead
+When the user sends a message, the chat always jumps to the bottom to show their new message
+Scroll Indicator
+Add a very subtle date divider that sticks to the top of the chat area as you scroll. For example, as you scroll through August messages, a little pill at the top says "August 14, 2026" so you always know what date you're looking at. When you scroll into older messages from August 13, the pill updates to "August 13, 2026."
+This is optional for v1.3 but nice if easy to add.
+What to Change
+Modify:
+The chat scroll container so it starts at the bottom on page load
+The scroll logic so new messages only auto-scroll if the user is already near the bottom
+Add the floating jump-to-bottom button with arrow icon
+Add the new-message badge to that button when messages arrive while scrolled up
+Keep Exactly As-Is:
+Everything else. Attendance cards, leave cards, hooks, keyword parser, room list, mates panel, demo data, all of it stays the same.
+Test This Before Finishing
+Open the Grade 10 Class 03 room. You should see Hannah's leave request and Ms. Yolanda's approval at the bottom of the chat.
+Scroll up to see older messages — the morning attendance, the "Good morning" assistant message, the date header.
+Scroll up a few screens. The floating down-arrow button should appear in the bottom-right.
+Have someone (or switch user and) send a new message. The chat should not jump down. The arrow button should get a little red badge with "1".
+Tap the arrow button. The chat smoothly scrolls to the bottom. The badge disappears. The newest message is visible.
+Send another message while already at the bottom. The chat should auto-scroll to show it.

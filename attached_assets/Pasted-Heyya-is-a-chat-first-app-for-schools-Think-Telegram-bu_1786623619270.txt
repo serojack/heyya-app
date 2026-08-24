@@ -1,0 +1,128 @@
+Heyya is a chat-first app for schools. Think Telegram, but instead of messaging your friends, you're managing your entire school day through group chats. Every room is a "Room," every person in it is a "Mate," and every action — attendance, leave, timetables — happens by chatting, not filling out forms.
+The magic rule: Nobody ever fills out a form. If a teacher wants to take attendance, they just chat. If a parent wants to report their kid sick, they just chat. If an admin wants to reshuffle a timetable, they just ask the AI assistant in the chat. The app should feel like texting a really smart colleague who happens to handle all your admin work.
+Who's Using This?
+Four types of people:
+Admins — Principals, timetable coordinators, office staff. They can see everything, create rooms, approve things, and manage the big picture.
+Teachers — They take attendance, apply for leave, check their timetables, and cover classes for absent colleagues.
+Students — They can see their own timetable, check their attendance record, and view announcements in their class rooms.
+Parents — They can see their child's attendance, apply for leave on their behalf, and get updates from class rooms.
+Everyone logs in, gets assigned a role, and only sees what they're allowed to see.
+The Layout: Make It Look Like Telegram
+I want the exact vibe of Telegram. Clean, fast, familiar.
+Left sidebar: A list of Rooms. Each room has a little avatar picture, the room name underneath, and a preview of the last message sent there. Just like your chat list in Telegram. At the top of this sidebar, put a search bar to find rooms quickly.
+Center: The chat itself. Big open space. Messages bubble in from left and right. System messages (like "Attendance is now open") sit in the middle with a soft grey background.
+Bottom: A message input bar. It grows if you type a lot. Has a paperclip icon for uploading files, and a send button.
+Right side (on desktop only): A "Mates" panel showing who's in this room right now, their little green dot if they're online, and their role. On mobile, this becomes a slide-out menu.
+Colors: Use Telegram blue (#0088cc) as your main accent. Clean whites and light greys for light mode. A nice dark navy (#17212b) for dark mode. Everything should feel airy and uncluttered.
+Fonts: Keep it simple. Inter or the system font. Nothing fancy.
+Rooms: The Heart of Everything
+Rooms are group chats. But they're organized by purpose:
+Class Rooms — "Year 7 Science," "Grade 5A," etc. Teachers and students are in here. Parents can view but usually don't chat.
+Staff Rooms — For teachers and admin only. School-wide announcements, staff leave, general chatter.
+Admin Rooms — Private spaces for principals and coordinators to manage timetables and see AI recommendations.
+When you tap a room, you enter the chat. That's where all the work happens.
+Creating a room: An admin taps the "New Room" button, gives it a name, picks what type it is, and adds people. Done.
+Feature 1: Taking Attendance (The Chat Way)
+Here's how a teacher takes attendance on a Monday morning:
+They open their class room, say: "Take attendance" or type /takeattendance.
+Immediately, the app posts a special message in the chat — an Attendance Card. It looks like a message bubble, but inside it's a grid of all the students' little round profile pictures with their names underneath. Next to each face are four small buttons: Present (green), Absent (red), Late (yellow), Excused (blue).
+Everyone starts as Present by default. The teacher just taps the exceptions. "Jamie is absent, tap." "Sarah is late, tap."
+As they tap, the colors update live. Other teachers in the room can see it happening in real-time if they're watching.
+When done, the teacher taps a "Done" button at the bottom of the card. The card updates to show: "Attendance finalized. 28 Present, 2 Absent, 1 Late." It becomes a record in the chat history. Anyone can scroll back and see it.
+If a parent opens the room later, they can see their own child's status, but they can't see the other kids' names or statuses. Privacy matters.
+The rule: Attendance is never a spreadsheet you open. It's a conversation you have in the room.
+Feature 2: Applying for Leave (Just Text It)
+Teachers, students, or parents should be able to message the room like they're texting a friend.
+Example:
+A teacher types: "Hey, I'm feeling really rough today. Got a fever. Won't make it in."
+The app is smart. It detects this is a sick leave request. It replies immediately with a Leave Card — a neat little box in the chat that says:
+Leave Request — Bob
+Type: Sick Leave
+Date: Today (15 March 2026)
+Reason: "Feeling really rough, got a fever."
+Status: Pending Approval
+Underneath are two buttons: Approve and Reject. Admin sees this in the Staff Room or Admin Room and taps one.
+If approved, two things happen:
+Bob gets a notification: "Your sick leave for today has been approved."
+The AI assistant wakes up and checks: "Bob has 3 classes scheduled today. Let me find someone to cover."
+Parents do the same thing. A parent jumps into the class room and says: "Emma has a dentist appointment tomorrow morning, she'll be in after lunch." The app creates a leave card for Emma. Teacher sees it, taps approve. Done.
+If someone wants to be specific, they can say: "I need personal leave from March 20th to March 22nd for a family event." The app understands the dates, the type, and the reason. No dropdown menus. No date pickers. Just talk.
+Feature 3: The AI Assistant — Your Smart Colleague
+Every room has access to an AI assistant. It looks like another user in the chat, but its avatar is a little robot icon and its name is "Heyya" or "Assistant." It should feel friendly and helpful, not robotic. Like that organized colleague who always knows the schedule.
+What it does:
+When a teacher calls in sick and it's approved, the Assistant automatically posts a message:
+"Bob is away today. I've checked the timetable. Here are the best options to cover his classes:"
+Then it shows an AI Recommendation Card:
+Cover Recommendation
+Carol — Free during periods 2 & 4. Teaches Math (matches Bob's Science — cross-coverage possible). Last covered this class: 2 weeks ago. [Assign]
+David — Free period 2 only. Teaches Science. Currently at 4/5 max load. [Assign]
+External Supply — No ideal internal match for period 3. [Book External]
+Admin taps Assign next to Carol. Carol gets a notification: "You've been assigned to cover Year 8 Science, Period 2. Accept?" She taps yes. The timetable updates. Everyone in the room sees the change as a system message.
+The Assistant also answers questions:
+A teacher can ask: "Who's free period 3 on Tuesdays?"
+The Assistant replies: "Carol, David, and Emma have no classes scheduled period 3 Tuesdays."
+Or: "When's the best time for a staff meeting this week?"
+Assistant: "Wednesday period 5 looks clear for 85% of staff. Want me to block it?"
+Feature 4: Timetables & Rosters (Visual and Drag-Friendly)
+Schools need timetables. But again, no boring grid software. Here's how it works:
+In any room, someone can say: "Show the timetable" or tap a timetable icon. The chat area transforms into a week view — Monday to Friday across the top, periods down the side. Each slot is a colored block showing the subject, teacher, and room number.
+For the timetable coordinator:
+They can drag blocks around. If they drag "Year 8 Math" from Monday Period 1 to Tuesday Period 2, the app checks: "Is the room free? Is the teacher free? Does it clash?" If there's a problem, the block gets a red border and a little warning: "Mrs. Johnson is already in Room 201 at this time."
+AI-Assisted Timetable Building:
+The coordinator can upload an Excel file with constraints — teacher names, subjects they can teach, maximum periods per week, rooms, class sizes. Then they type in the chat: "Heyya, can you build me a draft timetable where no teacher has back-to-back classes?"
+The Assistant thinks, then posts a Timetable Card — a preview of the generated week. The coordinator can drag to tweak it, and when happy, taps "Publish." The timetable goes live, and every affected room gets a system message: "New timetable published. Check your updated schedule."
+Personal view: Every user has a "My Timetable" view they can access from their profile or by asking the Assistant. It shows their schedule across all rooms.
+Feature 5: Bulk Upload (Excel & CSV)
+Sometimes schools have existing data — a big list of students, or last year's timetable. We need to handle that.
+The flow:
+An admin drags an Excel file into the chat, or taps the paperclip and uploads it. The file appears as a message: "📎 students_import.xlsx (45KB)" with a "Processing..." spinner.
+The app reads the file. Then it posts a preview message in the chat — a little table showing the first 3 rows it found:
+Preview: students_import.xlsx
+Table
+Name	Email	Grade	Parent Email
+John Doe	john@school.edu	7A	parent@email.com
+Sarah Smith	sarah@school.edu	7A	mom@email.com
+Found 45 students. Import into "Year 7A" room?
+[Import All] [Check for Issues] [Cancel]
+Admin taps Import All. Done. The app creates all the user accounts, adds them to the room, and posts: "✅ 45 students imported successfully."
+If there are problems — like duplicate emails or missing names — the app says: "Found 3 issues. Want to review?" and shows which rows need fixing.
+Supported files:
+Student lists (CSV or Excel)
+Teacher lists with subjects
+Full timetable exports
+Attendance records from other systems
+Feature 6: Documents & Files
+Any file shared in a room stays in that room. Photos, PDFs, Word docs, Excel sheets. They appear as chat messages with a file icon, name, size, and a download button.
+There's a Documents tab in each room (maybe as a toggle next to the chat, or accessible via a folder icon). It shows every file ever shared in that room, searchable by name. Think of it like the "Shared Media" section in Telegram.
+Admins can pin important documents so they stay at the top.
+How the Chat Should Feel (The Vibe)
+This is the most important part. The entire app is a chat app that happens to do ERP stuff.
+Messages are everything. When attendance is taken, it's a message. When leave is approved, it's a message. When the timetable changes, it's a system message. The chat history is the audit trail.
+Interactive cards live in messages. Those attendance grids, leave request boxes, and timetable previews? They're special message types. They look like bubbles, but they're clickable and functional.
+Slash commands for power users. Type / and see options: /takeattendance, /applyleave, /timetable, /ai. But regular natural language should work too.
+Typing indicators. When the AI is thinking, show the little bouncing dots.
+Read receipts. In staff rooms, show who's seen important announcements.
+Reactions. Let people react to messages with emojis. A principal might react 👍 to a leave request instead of typing "Approved."
+The Rules (Write These Down)
+No forms. Ever. If a user needs to provide 5 pieces of information, the app asks 5 questions in the chat, one by one, or shows an interactive card. No pop-up modals with input fields. No "New Entry" pages. Chat only.
+Everything happens in a room. There is no global dashboard you go to. You open a room, and you work there. The room is your workspace.
+Mobile first, desktop friendly. On a phone, the sidebar collapses to a bottom navigation bar: Rooms | Timetable | AI | Profile. On desktop, you see the full three-panel layout.
+Privacy by default. Students can't see other students' attendance. Parents only see their own kids. Teachers see their classes and staff rooms.
+Smart defaults. Attendance starts as "present" — teachers only mark exceptions. Leave starts as "today" if no date is given. The app should assume the obvious so users type less.
+Never silent. Every important action posts a message. If the AI assigns a cover teacher, everyone sees it. If a timetable changes, the room knows. Transparency builds trust.
+The Look & Feel Checklist
+[ ] Sidebar room list with avatars, names, and last message preview
+[ ] Chat bubbles: white for others, light blue for me, grey for system
+[ ] Rounded corners on everything. Soft, friendly, not sharp corporate edges
+[ ] Dark mode that actually looks good (deep navy, not harsh black)
+[ ] Profile pictures everywhere. People, not ID numbers.
+[ ] Status dots: green for online, grey for offline, yellow for "on leave"
+[ ] Smooth animations. Messages slide in. Cards expand gently. Nothing jarring.
+[ ] Empty states that are helpful. "No messages yet. Say hi!" or "No attendance taken today. Type 'take attendance' to start."
+Start Building in This Order
+Phase 1: Get the bones right. Login, roles, create rooms, join rooms, basic chat messages. Make it feel like Telegram first.
+Phase 2: Add the attendance card. Teacher types "take attendance" → card appears → tap to mark → finalize. Store it.
+Phase 3: Leave requests. Natural language in → leave card out → approve/reject buttons → notify user.
+Phase 4: Bring in the AI. Connect to OpenAI or Claude. Parse messages. Generate replacement recommendations. Post them as cards.
+Phase 5: Timetable view. Week grid. Drag and drop. Color blocks. AI generation from uploaded constraints.
+Phase 6: File uploads and bulk import. Drag Excel into chat → preview → import.

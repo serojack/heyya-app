@@ -1,0 +1,152 @@
+Heyya App v1.5 — Full Staff Roster & Admin Dashboard List View
+This is an update to v1.4. Do not rebuild the whole app. Only do these three things:
+Replace the old 2 mock teachers with the full 45 staff list below
+Update the Grade 10 Class 03 room with real teachers from this list
+Redesign the admin dashboard staff view to a sortable list
+Step 1: Remove Old Mock Teachers
+Delete Ms. Homer Yolanda and Mr. Peterson Alfred from everywhere in the app. They are gone. Replace them with real staff from the list below.
+Step 2: Update Grade 10 Class 03 Room
+The room now has these teachers:
+Main Teacher: Dr. Brown Christopher Andrew (Staff ID: GPH1100884884, Email: christopher.brown@gph.edu.com, Subject: IG Business)
+Co-Teacher: Dr. Peterson Karim Jamal (Staff ID: GPH1100884885, Email: karim.peterson@gph.edu.com, Subject: IG EN First Language)
+Update the demo chat history so these names appear instead of Homer Yolanda and Peterson Alfred. Keep all the same messages — just swap the names.
+Step 3: The New Full Staff List (45 People)
+Hard-code all of these people into the app. This is the complete staff roster for Goldeen Park High, Academic Year 2025–2026.
+Principals (1 person)
+Table
+ID	Name	Position	Subject	Email	Mobile
+GPH11008084880	Mr. Wong Lee Yang Sylvester	Executive Principal	IG History / AL History	sylvester.wongleeyang@gph.edu.com	91093302
+Vice Principals (2 people)
+Table
+ID	Name	Position	Subject	Email	Mobile
+GPH11008084881	Ms. Mustafah Adillah Syed	Vice Principal	AL Business / AL Economics	adillah.syedmustafah@gph.edu.com	89141477
+GPH11008084882	Mr. Williamson Abraham Stanley	Vice Principal	IG EN First Lang / AL EN Literature / AL Drama	abraham.williamson@gph.edu.com	80344141
+HODs (5 people)
+Table
+ID	Name	Position	Subject	Email	Mobile
+GPH1100884883	Dr. Flores Nao Mio	HOD	IG Economics / AL European History	nao.flores@gph.edu.com	92553419
+GPH1100884891	Mr. Butler Mason Elijah	HOD	IG Chemistry	mason.butler@gph.edu.com	83654145
+GPH1100884899	Dr. Williams Li Na	HOD	AL Mathematics Further	li.williams@gph.edu.com	83374989
+GPH1100884907	Mrs. Cruz Yoo Jin	HOD	IG Statistics	yoo.cruz@gph.edu.com	92104709
+GPH1100884915	Dr. King Benjamin Charles	HOD	IG CN First Language	benjamin.king@gph.edu.com	86453521
+Senior Teachers (1 person)
+Table
+ID	Name	Position	Subject	Email	Mobile
+GPH1100884895	Dr. Goh Woo Jin	Senior Teacher	AL Biology	woo.goh@gph.edu.com	87346706
+Teachers (30 people)
+Table
+ID	Name	Subject A	Subject B	Subject C	Email	Mobile
+GPH1100884884	Dr. Brown Christopher Andrew	IG Business	IG Chemistry	—	christopher.brown@gph.edu.com	88710122
+GPH1100884885	Dr. Peterson Karim Jamal	IG EN First Language	—	—	karim.peterson@gph.edu.com	89570154
+GPH1100884886	Dr. Wilson Yusuf Ibrahim	AL Music	—	—	yusuf.wilson@gph.edu.com	83105183
+GPH1100884887	Dr. Liu Wei Liang	AL Chemistry	—	—	wei.liu@gph.edu.com	80801326
+GPH1100884888	Dr. Ramirez Laura Sophie	AL Business	—	—	laura.ramirez@gph.edu.com	83619399
+GPH1100884889	Mrs. Jones Emilia Victoria	AL Geography	—	—	emilia.jones@gph.edu.com	99808412
+GPH1100884890	Mrs. Carter Noura Sara	IG EN Second Language	—	—	noura.carter@gph.edu.com	85982620
+GPH1100884892	Mrs. Martinez Sakura Yui	AL Information Technology	—	—	sakura.martinez@gph.edu.com	84846564
+GPH1100884893	Dr. Smith Ananya Priya	AL Accounting	—	—	ananya.smith@gph.edu.com	80379176
+GPH1100884894	Ms. Ong Laura Sophie	AL EN Literature	—	—	laura.ong@gph.edu.com	98734714
+GPH1100884896	Mr. Wang Ji Hoon	IG Psychology	—	—	ji.wang@gph.edu.com	80033092
+GPH1100884897	Dr. Ross Mason Elijah	IG Geography	—	—	mason.ross@gph.edu.com	95185067
+GPH1100884898	Dr. Scott Ananya Priya	AL Mathematics	—	—	ananya.scott@gph.edu.com	95494808
+GPH1100884900	Dr. Koh Elizabeth Ella	AL Computer Science	—	—	elizabeth.koh@gph.edu.com	82294131
+GPH1100884901	Dr. Edwards Mila Avery	IG History	—	—	mila.edwards@gph.edu.com	91349361
+GPH1100884902	Mrs. Ramirez Li Na	AL Art & Design	—	—	li.ramirez@gph.edu.com	94296717
+GPH1100884903	Dr. Hill Harry Jacob	IG World Literature	—	—	harry.hill@gph.edu.com	80932480
+GPH1100884904	Mrs. Patterson Layla Maryam	AL History	—	—	layla.patterson@gph.edu.com	87875588
+GPH1100884905	Mrs. James Haeun Soo	AL Physics	—	—	haeun.james@gph.edu.com	91586578
+GPH1100884906	Dr. Wright Aiden Jayden	AL European History	—	—	aiden.wright@gph.edu.com	83747407
+GPH1100884908	Mrs. Patterson Willow Evelyn	IG Music	—	—	willow.patterson@gph.edu.com	99651370
+GPH1100884909	Ms. Park Chloe Lily	AL Travel & Tourism	—	—	chloe.park@gph.edu.com	91585064
+GPH1100884910	Mr. Goh Jean Pierre	AL Law	—	—	jean.goh@gph.edu.com	90240268
+GPH1100884911	Dr. Kelly Omar Khalid	IG Biology	—	—	omar.kelly@gph.edu.com	98961183
+GPH1100884912	Dr. Rodriguez Isla Poppy	IG Accounting	—	—	isla.rodriguez@gph.edu.com	90494519
+GPH1100884913	Dr. Flores Laura Sophie	AL Psychology	—	—	laura.flores@gph.edu.com	88366752
+GPH1100884914	Dr. Moore Jun Hao	AL Drama	—	—	jun.moore@gph.edu.com	93244510
+GPH1100884916	Mr. Reed Ethan Logan	IG CN Second Language	—	—	ethan.reed@gph.edu.com	97005411
+GPH1100884917	Mr. Teo Zhi Ming	IG Drama	—	—	zhi.teo@gph.edu.com	91518644
+GPH1100884918	Dr. Evans Haeun Soo	IG Mathematics	—	—	haeun.evans@gph.edu.com	85929622
+Non-Teaching Staff (6 people)
+Table
+ID	Name	Position	Email	Mobile
+GPH1100884919	Ms. Brown Manon Chloe	Marketing Manager	manon.brown@gph.edu.com	84075818
+GPH1100884920	Dr. Young Joseph Edward	IT Manager	joseph.young@gph.edu.com	97277901
+GPH1100884921	Dr. Jones Woo Jin	Operations Manager	woo.jones@gph.edu.com	92185188
+GPH1100884922	Dr. Barnes Louis Francois	School Counsellor	louis.barnes@gph.edu.com	80548687
+GPH1100884923	Mrs. Bryant Yoo Jin	Librarian	yoo.bryant@gph.edu.com	94479627
+GPH1100884924	Dr. Ng Max Lucas	HR Manager	max.ng@gph.edu.com	88565431
+Step 4: Redesign the Admin Dashboard Staff View
+When the admin clicks "Staff" or "Attendance Overview" in the admin dashboard, show a desktop folder-style list view. Not cards. Not icons. A clean table.
+The Layout
+Top section: Three big summary cards (keep these):
+Total Staff: 45
+Teaching Staff: 39
+Non-Teaching Staff: 6
+Below that: A tab bar with three tabs:
+All Staff
+Teaching Staff
+Non-Teaching Staff
+When the admin clicks a tab, the list below filters accordingly.
+The "All Staff" Tab
+A table with these column headers:
+| Staff ID | Name | Position | Main Subject | Status | Email | Mobile |
+Each row is one staff member. Clicking a row expands it to show:
+Full name
+All subjects they teach (A, B, C)
+Emergency contact name and number
+Contract start and end dates
+A "View Profile" button that opens a side panel or modal with full details
+The "Teaching Staff" Tab
+Same table, but grouped by Main Subject. Use collapsible sections like folders:
+📁 IG Business (0264) — 1 staff
+▶ Dr. Brown Christopher Andrew | Teacher | Active
+📁 AL Chemistry (9701) — 1 staff
+▶ Dr. Liu Wei Liang | Teacher | Active
+📁 IG History (0470) — 2 staff
+▶ Mr. Wong Lee Yang Sylvester | Executive Principal | Active
+▶ Dr. Edwards Mila Avery | Teacher | Active
+Each subject "folder" can be clicked to expand or collapse. Show a count badge: "— 3 staff" next to the folder name.
+The "Non-Teaching Staff" Tab
+Simple list. No subject grouping needed. Just the table:
+| Staff ID | Name | Position | Department | Status | Email | Mobile |
+Step 5: Sortable Columns
+Every column header in the table should be clickable to sort.
+When the admin clicks a column header:
+First click: sorts A to Z (or 0 to 9 for numbers)
+Second click: sorts Z to A (or 9 to 0)
+Third click: back to original order
+Show a little arrow icon next to the header: ▲ for ascending, ▼ for descending
+Columns that should be sortable:
+Staff ID (numerical by the number part)
+Name (alphabetical)
+Position (alphabetical)
+Main Subject (alphabetical)
+Status (alphabetical)
+The sort should work within each tab. If I'm in the "Teaching Staff" tab and sort by Name, all the teaching staff reorder alphabetically. The subject folders stay open or closed as they were.
+Step 6: Search
+Add a search bar above the table. When the admin types, it filters the list in real-time. Search across:
+Name
+Staff ID
+Subject
+Position
+Email
+What Stays the Same
+The login page and demo credentials
+The logout button
+The role switcher
+The chat interface (rooms, messages, attendance cards, leave cards, hooks, Assistant)
+The student list (16 students in Grade 10 Class 03)
+The mobile responsive behavior
+The "View as" dropdown
+Quick Test Checklist
+Log in as demo user. Switch to Admin.
+Click "Staff" or "Attendance Overview."
+See 45 total staff in the summary cards.
+See the table with all 45 staff listed.
+Click "Teaching Staff" tab. See staff grouped by subject with folder-style headers.
+Click a folder to collapse it. Click again to expand.
+Click the "Name" column header. Staff sort A to Z. Click again, Z to A.
+Click "Non-Teaching Staff" tab. See 6 people. No subject folders.
+Type "Brown" in the search bar. See Dr. Brown and Ms. Brown appear.
+Switch to "Ms. Mustafah Adillah Syed (Teacher)" in the role switcher. Open Grade 10 Class 03. See the chat works with the new teacher names.
+Make sure Ms. Homer Yolanda and Mr. Peterson Alfred are nowhere in the app anymore.

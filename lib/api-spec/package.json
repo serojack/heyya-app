@@ -1,0 +1,11 @@
+{
+  "name": "@workspace/api-spec",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "codegen": "orval --config ./orval.config.ts && sed -i -e \"/generated\\/types/d\" ../../lib/api-zod/src/index.ts && sed -i -e \"/type SecondParameter/a type QueryOptions<TQueryFnData, TError, TData> = Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'> & { queryKey?: QueryKey };\" -e \"s/query?:UseQueryOptions</query?:QueryOptions</g\" -e \"s/TData>, request/TData>, request/g\" ../../lib/api-client-react/src/generated/api.ts && pnpm -w run typecheck:libs"
+  },
+  "devDependencies": {
+    "orval": "^8.23.0"
+  }
+}
