@@ -1,0 +1,157 @@
+Heyya App v1.1 — Build Prompt for Replit
+What I Need You to Build
+Build me a fully working web app called Heyya. It's a chat-based school management app that looks exactly like Telegram. Not a landing page — a real, functioning app.
+The whole idea is: nobody ever fills out a form. Teachers, students, and parents do everything by chatting in group chats called Rooms. The people in each room are called Mates.
+The Layout (Make It Look Like Telegram)
+Three panels side by side on desktop, stacked on mobile:
+Left panel: Room list. Like Telegram's chat list. Shows room name, a little avatar circle, and the last message preview. At the top, a search bar.
+Center panel: The chat itself. Message bubbles. System messages in the middle. The newest message is always at the bottom. Older messages scroll up. At the bottom, a message input bar with a paperclip icon, emoji button, and send button.
+Right panel: Mates list. Shows everyone in the current room. Their profile picture (a colored circle with their initials), their name, and a green dot if they're online.
+Colors: Clean and light. White background. Light grey for secondary surfaces. Blue accent for buttons and my own message bubbles. Dark mode option would be nice but not required for v1.1.
+The One Room We're Starting With
+Pre-load the app with one room already created:
+Room Name: Grade 10 Class 03
+School: Goldeen Park High
+Type: Homeroom
+Academic Year: 2025–2026
+Term: Fall Semester (Semester 1)
+This room already has people in it. I need you to hard-code all of these people into the app as the starting data. Here is every single person:
+Teachers (2 people)
+Ms. Homer Yolanda — Main Teacher. Email: yolanda.homer@goldeenpark.edu. Staff ID: GPH11008083468. She is the room owner.
+Mr. Peterson Alfred — Co-Teacher. Email: alfred.peterson@goldeenpark.edu. Staff ID: GPH11008084991.
+Students (16 people)
+Table
+School ID	Preferred Name	Full Name	Gender	Student Email	Parent Name	Parent Email	Status
+GPH2022642801	Fred	Fredick John Kelly	Male	fredrickkelly@gmail.com	Maria Poh	mariapoh_uk@gmail.com	Active
+GPH2022642802	Hannah	Hannah Cullum	Female	hannah.freedom2010@gmail.com	Liam Peterson	peterson.liam2025@gmail.com	Active
+GPH2022642803	Hashni	Uma Hashni Nazir	Female	u_hashni@gmail.com	Nazir Nasir	mohadnasir@gmail.com	Active
+GPH2022642804	Morrie	Morrie Watters	Female	whatswithwatters@gmail.com	Anna Watters	playtennis.watters@gmail.com	Active
+GPH2022642805	Rash	Ahamdi Rasyid Isa	Male	rushingrasyid.2010@gmail.com	Usof	7200usof@yahoo.com	Long Term Leave
+GPH2022642806	James	James Kong	Male	ja_ja_bings@gmail.com	Mr. Kong	kingofkongs@gmail.com	Active
+GPH2022642807	JS	Juptry Sea Yong	Female	juptryonlyme@gmail.com	Pauline Yong	equarius1990pauline@gmail.com	Active
+GPH2022642808	Timo	Timo Tanner	Male	timotanner2020@gmail.com	Yati Tanner	mrstanner.school@gmail.com	Active
+GPH2022642809	Rachel	Ya Ser Fang	Female	rachel_fang_yaser@yahoo.com	Ms. Fang	1777201851112@163.com	Active
+GPH2022642810	Simon	Simon Seaman	Male	sosimonsays@gmail.com	Timoty Seaman	timmyseaman1010@gmail.com	Active
+GPH2022642811	Queenie	Queenie Laurence	Female	queeniefied@yahoo.com.au	Ms. Lilly	double_l_for_lilly@gmail.com	Active
+GPH2022642812	Carey	Carey Un-Jil Park	Male	careyfrom_korea@gmail.com	Ruth Park	90ruth.floral@gmail.com	Active
+GPH2022642813	Don	Donny Alistar Ang	Male	dontcallmedonny@gmail.com	Anthony Ang	aa.anthony@gmail.com	Active
+GPH2022642814	Adam	Pu Yar Soh	Male	adam_soh_common@yahoo.com	Samuel Soh	reachouttosam@gmail.com	Withdrawn
+GPH2022642815	Farah	Farah Eliza Senek	Female	512_far_ah@gmail.com	Yvonne Senek	senekfamilychat@gmail.com	Active
+GPH2022642816	Laurel	Lora Laurel Jordanis	Female	laurel_jordanis@gmail.com	Mr. Jordanis	jordanispaul.alfred@gmail.com	Active
+Important: Adam Soh has status "Withdrawn" — he should still appear in the Mates list but greyed out or marked as withdrawn. Rash Isa has status "Long Term Leave" — show him in the list but marked as on leave. Everyone else is Active.
+For profile pictures, since we don't have photos, use colored circles with the person's initials. Pick a consistent color for each person based on their name so it stays the same every time.
+Features to Build in v1.1
+1. Chat Messaging
+Anyone can type a message and send it. It appears as a bubble.
+My own messages appear on the right in blue. Other people's messages appear on the left in grey.
+System messages (like "Attendance finalized" or "Leave approved") appear centered in a soft grey bubble.
+Messages show the sender's name above the bubble and the time below it.
+The chat auto-scrolls so the newest message is always visible at the bottom.
+2. Taking Attendance (The Star Feature)
+When a teacher types "take attendance" or "/takeattendance" in the chat, the app posts a special message in the chat — an Attendance Card.
+This card shows a grid of all the Active students (not Withdrawn ones). Each student appears as:
+Their colored initial circle
+Their preferred name underneath
+A status dot and label: Present (green), Absent (red), Late (yellow), or Excused (blue)
+Everyone starts as Present. The teacher just clicks a student to cycle through the statuses: Present → Absent → Late → Excused → back to Present.
+At the bottom of the card is a "Done" button. When clicked, the attendance is finalized. The card updates to show it is finalized. A system message appears: "Ms. Homer Yolanda finalized attendance — 14 present, 1 absent, 1 on leave."
+The finalized attendance card stays in the chat history. Anyone can scroll back and see it.
+3. Leave Requests (Also Through Chat)
+When anyone types something like "I'm sick today" or "I need leave tomorrow" or uses "/applyleave", the app detects this and posts a Leave Card in the chat.
+The Leave Card shows:
+Person's name
+Leave type (Sick, Personal, Family, etc.)
+Date
+Reason
+Status: Pending (with Approve and Reject buttons underneath)
+Only teachers and admins can see the Approve/Reject buttons. When a teacher clicks Approve, the card updates to show "Approved" in green. A system message confirms it.
+4. The AI Assistant
+There is a special user in every room called "Heyya Assistant" (or just "Assistant"). It has a robot-style avatar.
+The Assistant automatically does helpful things:
+When attendance is opened, it says: "Good morning! Attendance for Grade 10 Class 03 is now open."
+When attendance is finalized, it summarizes: "Attendance complete: 14 present, 1 absent. All good!"
+When someone mentions being sick, it offers to create a leave card.
+It can answer simple questions like "Who is on leave today?" by looking at the data.
+For v1.1, the Assistant doesn't need to be connected to a real AI API. Just make it respond with smart pre-written messages based on what the user types. Use simple keyword matching.
+5. The Mates Panel
+The right sidebar lists all Mates in the room, grouped by:
+Teachers (at the top)
+Students (below)
+Each mate row shows:
+Their colored initial circle
+Their name
+Their role (Main Teacher, Co-Teacher, or blank for students)
+A green dot if online, grey if offline
+For students on leave: a small "On leave" label in orange
+Clicking on any mate opens a little profile popup showing:
+Their full name
+Their email
+Their parent name and parent email (for students)
+Their enrollment status
+Their school ID
+6. Excel Upload
+I, as the app owner, need to be able to upload an Excel file to add or update student data. Add a simple upload area — maybe a button in the top bar or a drag-and-drop zone.
+When I upload the Excel file, the app should:
+Read the file
+Show me a preview of the first 3 rows
+Tell me how many students it found
+Let me click "Import" to add them to the room
+If there are errors (like duplicate emails or missing names), show me which rows have problems
+The Excel format it should expect is the same as the student table above. The app should be able to handle both .xlsx and .csv files.
+Pre-loaded Demo Chat History
+When I first open the app, the Grade 10 Class 03 room should already have some chat history in it, so it doesn't look empty. Include these messages (oldest at top, newest at bottom):
+System: August 14, 2026
+Assistant: "Good morning! Attendance for Grade 10 Class 03 is now open. Tap each student to mark exceptions."
+Attendance Card (open, not finalized, showing all 14 active students as Present, Rash as Absent)
+Ms. Homer Yolanda: "Morning everyone! Let's get attendance sorted quickly today."
+Mr. Peterson Alfred: "Rash is still on long-term leave, right? I saw his family updated the office."
+Ms. Homer Yolanda: "Yes, confirmed. He's on leave until end of month. I'll mark him absent."
+System: "Ms. Homer Yolanda marked Rash Isa as Absent"
+James Kong: "I'm here! Ready for class."
+Rachel Fang: "Present! Excited for today's lesson."
+Don Ang: "Here and ready."
+Ms. Homer Yolanda: "Great energy today, everyone! Let me finalize attendance."
+System: "Ms. Homer Yolanda finalized attendance"
+Attendance Card (finalized, same data)
+Assistant: "Attendance complete: 14 present, 1 absent (Rash — long-term leave). All good!"
+Hannah Cullum: "Ms. Yolanda, I might need to leave early today. I have a doctor's appointment at 2pm."
+Ms. Homer Yolanda: "No problem, Hannah. Just apply for leave through the chat and I'll approve it."
+Hannah Cullum: "/applyleave personal today 'Doctor appointment at 2pm'"
+Leave Card (Hannah Cullum, Personal, Thu Aug 14, "Doctor appointment at 2pm", Pending)
+Ms. Homer Yolanda: "Approved! Take care, Hannah."
+System: "Ms. Homer Yolanda approved leave for Hannah Cullum"
+Leave Card (updated to show Approved)
+User Roles & Permissions
+Teachers (Ms. Homer Yolanda, Mr. Peterson Alfred): Can send messages, take attendance, approve/reject leave, view all mate profiles.
+Students: Can send messages, view their own attendance record, apply for leave, view their own profile.
+Parents: For v1.1, parents don't need their own login. Their contact info is stored with the student data so the app can reference them. In future versions, parents will get their own view.
+For v1.1, let me (the editor) switch between viewing as different users so I can test everything. Add a simple dropdown in the top bar that lets me pick: "View as: Ms. Homer Yolanda" or "View as: Fred Kelly" or "View as: Hannah Cullum." When I switch, the chat interface updates to show messages from that person's perspective.
+Mobile Behavior
+On small screens (phones):
+Hide the left sidebar. Show a bottom navigation bar instead: Rooms | Chat | Mates | Profile
+The room list becomes a full-screen page you navigate to
+The mates list becomes a slide-out panel or a separate page
+The chat area takes up the full screen
+Make sure the message input bar stays fixed at the bottom and doesn't get hidden by the keyboard
+Data Storage
+Since this is a web app on Replit, use whatever simple storage Replit provides. For v1.1, it's fine if the data resets when the app restarts — I just need to see it working. But if you can make it save to a simple file or local database, even better.
+The student and teacher data I gave you above should be hard-coded as the default data. The Excel upload feature should let me add more students or update existing ones.
+What the App Should NOT Have
+No separate "pages" for forms. No "New Attendance" page. No "Leave Application" page. Everything happens in the chat.
+No complex dashboards with charts and graphs for v1.1. Keep it chat-first.
+No login system needed for v1.1. Just the "View as" dropdown for testing.
+Final Checklist
+Before you finish, make sure:
+[ ] The app opens and shows the Grade 10 Class 03 room immediately
+[ ] All 16 students and 2 teachers appear in the Mates panel
+[ ] The demo chat history is visible with the newest message at the bottom
+[ ] I can click on a student in the attendance card to change their status
+[ ] I can click "Done" to finalize attendance
+[ ] I can type a message and send it
+[ ] The Assistant responds to basic keywords
+[ ] I can click on any mate to see their profile popup
+[ ] The "View as" dropdown lets me switch between teacher and student perspectives
+[ ] The Excel upload button works and can parse a file
+[ ] It looks clean, modern, and Telegram-like
+[ ] It works on mobile (responsive)
+Build this step by step. Start with the layout and the hard-coded data. Then add the chat. Then the attendance card. Then leave. Then the Assistant. Then the upload. Show me progress as you go.
